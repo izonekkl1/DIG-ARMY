@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dig-Army - Digital Protection Partner</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ================= CSS VARIABLES ================= */
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #131b2a;
+            --bg-nav: rgba(10, 14, 23, 0.95);
+            --neon-blue: #00a8ff;
+            --neon-glow: 0 0 15px rgba(0, 168, 255, 0.6);
+            --saffron: #ff9933;
+            --white: #ffffff;
+            --green: #138808;
+            --danger: #ff4757;
+            --text-main: #ffffff;
+            --text-dim: #a0aec0;
+            --border-color: #2a3441;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ================= NAVIGATION ================= */
+        nav {
+            background: var(--bg-nav);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 168, 255, 0.3);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--white);
+        }
+
+        .nav-logo i { color: var(--neon-blue); text-shadow: var(--neon-glow); }
+
+        .nav-links { display: flex; gap: 30px; }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--neon-blue);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* ================= PAGE CONTAINER ================= */
+        .page {
+            display: none;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s ease;
+            flex: 1;
+        }
+
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ================= PAGE 1: HOME ================= */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-text h1 { font-size: 48px; margin-bottom: 20px; background: linear-gradient(to right, #fff, var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-text p { color: var(--text-dim); font-size: 18px; margin-bottom: 30px; }
+
+        .hero-image { flex: 1; min-width: 300px; }
+        .hero-image img { width: 100%; border-radius: 15px; box-shadow: 0 0 30px rgba(0, 168, 255, 0.4); border: 1px solid rgba(0, 168, 255, 0.3); }
+
+        .mission-section { background: var(--bg-card); padding: 40px; border-radius: 15px; border-left: 5px solid var(--neon-blue); margin-bottom: 40px; }
+        .mission-section h2 { margin-bottom: 20px; color: var(--neon-blue); }
+        .mission-text { color: var(--text-dim); font-size: 16px; line-height: 1.8; }
+        .mission-text strong { color: var(--white); }
+        .mission-text em { color: var(--saffron); font-style: normal; }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(90deg, var(--neon-blue), #0077b6);
+            color: white;
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn:hover { box-shadow: 0 0 25px rgba(0, 168, 255, 0.8); transform: translateY(-2px); }
+        .btn-danger { background: linear-gradient(90deg, var(--danger), #c0392b); box-shadow: 0 0 15px rgba(255, 71, 87, 0.6); }
+        .btn-danger:hover { box-shadow: 0 0 25px rgba(255, 71, 87, 0.9); }
+
+        /* ================= PAGE 2: REGISTER ================= */
+        .form-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .form-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--saffron), var(--white), var(--green), var(--neon-blue));
+            border-radius: 15px 15px 0 0;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-dim); font-weight: 600; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px 15px; background-color: #0d1520; border: 1px solid var(--border-color);
+            border-radius: 8px; color: var(--white); font-size: 15px; outline: none; transition: border-color 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--neon-blue); box-shadow: 0 0 8px rgba(0, 168, 255, 0.3); }
+
+        .file-upload-wrapper {
+            position: relative; height: 100px; border: 2px dashed var(--border-color);
+            border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0d1520; cursor: pointer; transition: all 0.3s ease;
+        }
+        .file-upload-wrapper:hover { border-color: var(--neon-blue); background-color: rgba(0, 168, 255, 0.05); }
+        .file-upload-wrapper i { font-size: 24px; color: var(--neon-blue); margin-bottom: 5px; }
+        .file-upload-wrapper p { font-size: 13px; color: var(--text-dim); }
+        .file-upload-wrapper input[type="file"] { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+
+        /* ================= PAGE 3: COMPLAINT ================= */
+        .success-box {
+            text-align: center; background: rgba(19, 136, 8, 0.1); border: 2px solid var(--green);
+            padding: 30px; border-radius: 15px; margin-bottom: 30px;
+        }
+        .success-box h2 { color: var(--green); margin-bottom: 10px; }
+        .success-box .id-badge {
+            display: inline-block; background: var(--white); color: var(--bg-dark);
+            padding: 10px 20px; border-radius: 5px; font-family: 'Orbitron', sans-serif;
+            font-weight: 900; font-size: 20px; margin-top: 10px;
+        }
+
+        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .social-checkbox {
+            background: #0d1520; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .social-checkbox:hover { border-color: var(--neon-blue); }
+        .social-checkbox input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--neon-blue); cursor: pointer; }
+        .social-checkbox label { cursor: pointer; font-size: 14px; }
+
+        /* ================= PAGE 4: DETECTION ================= */
+        .detection-table {
+            width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card);
+            border-radius: 10px; overflow: hidden;
+        }
+        .detection-table th, .detection-table td {
+            padding: 15px; text-align: left; border-bottom: 1px solid var(--border-color);
+        }
+        .detection-table th { background: rgba(0, 168, 255, 0.1); color: var(--neon-blue); font-family: 'Orbitron', sans-serif; font-size: 14px; }
+        .detection-table tr:hover { background: rgba(255, 255, 255, 0.02); }
+        
+        .action-buttons { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .hero-section { flex-direction: column; text-align: center; }
+            .hero-text h1 { font-size: 32px; }
+            .form-card { padding: 20px; }
+            .action-buttons { flex-direction: column; }
+            .action-buttons .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-logo">
+            <i class="fas fa-shield-alt"></i> Dig-Army
+        </div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+            <li><a onclick="showPage('home')">Our Mission</a></li>
+            <li><a onclick="showPage('register')" id="nav-register">Sign up</a></li>
+            <li><a onclick="showPage('register')">Logging</a></li>
+        </ul>
+    </nav>
+
+    <!-- ================= PAGE 1: HOME ================= -->
+    <div id="page-home" class="page active">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-text">
+                    <h1>Your Digital World. Our Protection.</h1>
+                    <p>Protect your photos, identity and personal data from digital threats. Join the Dig-Army movement for a safer Digital India.</p>
+                    <button class="btn" onclick="showPage('register')"><i class="fas fa-user-plus"></i> Register us</button>
+                </div>
+                <div class="hero-image">
+                    <!-- ?? IMPORTANT: Replace 'banner.jpg' with your actual poster image file name -->
+                    <img src="banner.jpg" alt="Dig-Army Cybersecurity Poster">
+                </div>
+            </div>
+
+            <!-- Our Mission Section (As per PDF Page 1) -->
+            <div class="mission-section">
+                <h2>Our Mission</h2>
+                <div class="mission-text">
+                    <p><strong>Mission:</strong> Protect your photos from hidden digital risks and social evils.</p>
+                    <br>
+                    <p><em>Think it!</em> Do you truly know if your photos are safe online?</p>
+                    <br>
+                    <p><strong>Be aware:</strong> Today's casual upload could be tomorrow's compromise. Protect your digital identity before it's too late.</p>
+                    <br>
+                    <p><strong>Safety:</strong> Upload with confidence, we are here to guarantee your digital privacy and ultimate peace of mind.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 2: REGISTER FORM ================= -->
+    <div id="page-register" class="page">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 30px; color: var(--neon-blue);">Register Form</h2>
+            <div class="form-card">
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contract">Contract No.</label>
+                        <input type="text" id="contract" placeholder="Enter contract number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="idproof">ID Proof</label>
+                        <input type="text" id="idproof" placeholder="Enter ID proof details (e.g., Aadhar, PAN)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="remarks">Remarks</label>
+                        <textarea id="remarks" rows="3" placeholder="Any additional remarks"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Photo</label>
+                        <div class="file-upload-wrapper">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p id="fileLabel">Click Here to upload</p>
+                            <input type="file" id="photoUpload" accept="image/*" required onchange="updateFileName()">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%; justify-content: center;">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 3: SUCCESS & COMPLAINT ================= -->
+    <div id="page-complaint" class="page">
+        <div class="container">
+            <!-- Success Message -->
+            <div class="success-box">
+                <h2>Your Register is Completed</h2>
+                <p>Your ID :</p>
+                <div class="id-badge">A2357543</div>
+            </div>
+
+            <!-- Blackmail Complaint Section -->
+            <div class="form-card">
+                <h3 style="margin-bottom: 15px; color: var(--danger);">If you are Blackmailed?</h3>
+                <p style="color: var(--text-dim); margin-bottom: 20px;">If yes, enter that number or ID to file a complaint to Cyber Security.</p>
+                
+                <div class="form-group">
+                    <input type="text" id="blackmailInput" placeholder="Enter phone number or social media ID">
+                </div>
+
+                <h4 style="margin: 25px 0 15px 0;">Select Tick Box to find on social media</h4>
+                <div class="social-grid">
+                    <div class="social-checkbox">
+                        <input type="checkbox" id="fb" value="Facebook">
+                        <label for="fb"><i class="fab fa-facebook"></i> Facebook</label>
+                    </div>
+                    <div class="social-checkbox">
+                        <input type="checkbox" id="insta" value="Instagram">
+                        <label for="insta"><i class="fab fa-instagram"></i> Insta</label>
+                    </div>
+                    <div class="social-checkbox">
+                        <input type="checkbox" id="snap" value="Snapchat">
+                        <label for="snap"><i class="fab fa-snapchat"></i> Snapchat</label>
+                    </div>
+                    <div class="social-checkbox">
+                        <input type="checkbox" id="wa" value="Whatsapp">
+                        <label for="wa"><i class="fab fa-whatsapp"></i> Whatsapp</label>
+                    </div>
+                    <div class="social-checkbox">
+                        <input type="checkbox" id="tg" value="Telegram">
+                        <label for="tg"><i class="fab fa-telegram"></i> Telegram</label>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Other paste URL</label>
+                    <input type="url" id="otherUrl" placeholder="https://...">
+                </div>
+
+                <button class="btn btn-danger" style="width: 100%; justify-content: center; margin-top: 20px;" onclick="showPage('detection')">
+                    <i class="fas fa-search"></i> Scan Social Media
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 4: DETECTION RESULTS ================= -->
+    <div id="page-detection" class="page">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 10px; color: var(--neon-blue);">Your Photo we detected from the following Social medias and id</h2>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Based on our AI fingerprinting scan, the following matches were found.</p>
+
+            <!-- Detection Table (Mock Data) -->
+            <table class="detection-table">
+                <thead>
+                    <tr>
+                        <th>Social Media Name</th>
+                        <th>Id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><i class="fab fa-facebook" style="color: #1877f2;"></i> Facebook</td>
+                        <td>john_doe_123</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fab fa-instagram" style="color: #e4405f;"></i> Instagram</td>
+                        <td>travel_photography_2024</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram</td>
+                        <td>@dark_channel_01</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-globe"></i> Other Website</td>
+                        <td>www.randomblog.com/photo</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="alert('Warning sent to social media platforms successfully!')">
+                    <i class="fas fa-paper-plane"></i> Click here to send warning to social media to remove my pics from that id
+                </button>
+                <button class="btn btn-danger" onclick="alert('Complaint filed to Cyber Security successfully!')">
+                    <i class="fas fa-gavel"></i> Click here to Complaint on Cyber
+                </button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn" onclick="showPage('home')"><i class="fas fa-home"></i> Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // Function to switch between pages
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            // Update Navigation active state
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // File Upload Name Update
+        function updateFileName() {
+            const input = document.getElementById('photoUpload');
+            const label = document.getElementById('fileLabel');
+            if (input.files && input.files.length > 0) {
+                label.textContent = "Selected: " + input.files[0].name;
+                label.style.color = "#138808"; // Green color
+            }
+        }
+
+        // Handle Registration Form Submit
+        function handleRegister(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            const name = document.getElementById('name').value;
+            const fileInput = document.getElementById('photoUpload');
+            
+            if(fileInput.files.length === 0) {
+                alert("Please upload a photo.");
+                return;
+            }
+
+            // Simulate registration success and go to Page 3
+            // In a real app, you would send data to a server here.
+            showPage('complaint');
+        }
+    </script>
+
+</body>
+</html>
